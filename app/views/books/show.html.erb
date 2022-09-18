@@ -1,0 +1,23 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <%= render 'users/userinfo' %>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <tr>
+            <td><%= image_tag @book.get_image %></td>
+            <td>
+              <a href="/books/<%= @book.id %>">
+                <%= @book.title %>
+              </a>
+            </td>
+            <td><%= @book.body %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
