@@ -1,3 +1,23 @@
+    <% if @user.errors.any? %>
+      <div class="error_explanation">
+        <% if @user.errors.count > 1 %>
+          <h2><%= @user.errors.count %> errors prohibited this obj from being saved:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <h2>1 error prohibited this obj from being saved:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-sm-0 mx-auto">

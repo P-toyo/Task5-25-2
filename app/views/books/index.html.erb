@@ -1,3 +1,23 @@
+    <% if @post_book.errors.any? %>
+      <div class="error_explanation">
+        <% if @post_book.errors.count > 1 %>
+          <h2><%= @post_book.errors.count %> errors prohibited this obj from being saved:</h2>
+          <ul>
+            <% @post_book.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <h2>1 error prohibited this obj from being saved:</h2>
+          <ul>
+            <% @post_book.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+
 <div class="container px-5 px-sm-0">
   <div class="row">
     <%= render 'users/userinfo' %>
@@ -23,6 +43,9 @@
                 </a>
               </td>
               <td><%= book.body %></td>
+            </tr>
+            <tr>
+              <td></td>
             </tr>
           <% end %>
         </tbody>

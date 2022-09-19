@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+
+  before_action :authenticate_user!
+
   def index
     @user = current_user
     @books = Book.all
@@ -6,23 +9,45 @@ class BooksController < ApplicationController
   end
 
   def create
+    @user = current_user
     @post_book = Book.new(book_params)
     @post_book.user_id = current_user.id
-    @post_book.save
-    redirect_to books_path(current_user.id)
+    if @post_book.save
+      flash[:notice] = "You have created book successfully."
+      redirect_to book_path(@post_book.id)
+    else
+      @books = Book.all
+      render :index
+    end
   end
 
   def show
-    @book = Book.find(params[:id])
+    @post_book = Book.new
+    @posted_book = Book.find(params[:id])
+    @post_user = User.find(@posted_book.user_id)
     @user = current_user
+    @book = Book.new
   end
 
-  def get_image
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  def edit
+    @book = Book.find(params[:id])
+  end
+
+  def update
+    @book = Book.find(params[:id])
+    @book.update(book_params)
+    if @book.save
+      flash[:notice] = "You have updated book successfully."
+      redirect_to book_path(params[:id])
+    else
+      render :edit
     end
-    image
+  end
+
+  def destroy
+    @book = Book.find(params[:id])
+    @book.destroy
+    redirect_to books_path
   end
 
   private
