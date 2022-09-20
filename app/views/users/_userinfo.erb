@@ -1,6 +1,8 @@
 <div class="col-md-3">
   <h2>User info</h2>
-  <%= image_tag @user.get_profile_image %>
+  <a href="/users/<%= current_user.id %>">
+    <%= image_tag @user.get_profile_image %>
+  </a>
   <table class="table">
     <tr></tr>
     <tr>
